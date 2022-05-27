@@ -19,8 +19,6 @@ public class UserService {
         User u = userSaveDto.createUser();
 
         validate(u);
-
-
         return userRepository.save(u);
 
     }
@@ -38,7 +36,8 @@ public class UserService {
         Long l = userRepository.findByUserCount(user.getId());
         if (l!=0)
             throw new IllegalStateException("이미 존재하는 회원입니다.");
-
     }
-
+    public User findByUserId(String id){
+        return userRepository.findByUserId(id);
+    }
 }

@@ -33,6 +33,11 @@ public class UserRepository {
         return em.createQuery("select count(u) from User u where u.id = :id", Long.class)
                 .setParameter("id",userId)
                 .getSingleResult();
+    }
+    public User findByUserId(String userId){
+        return em.createQuery("select u from User u where u.id = :id", User.class)
+                .setParameter("id",userId)
+                .getSingleResult();
 
     }
 }

@@ -23,13 +23,9 @@ public class UserService {
 
     }
 
-    public List<UserResponseDto> userList() {
-        List<UserResponseDto> userResponseDtoList = new ArrayList<>();
-        for (User u : userRepository.findAll()) {
-            userResponseDtoList.add(UserResponseDto.createUserResDto(u));
-        }
-        ;
-        return userResponseDtoList;
+    public List<User> userList() {
+
+        return userRepository.findAll();
     }
 
     public void validate(User user) {

@@ -29,7 +29,7 @@ public class UserController {
     @GetMapping("/user/list")
     public List<UserResponseDto> userList(){
 
-        return userService.userList();
+        return UserResponseDto.createUserResDto(userService.userList());
     }
     @PostMapping("/user")
     public Long join(UserSaveDto userSaveDto){
@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/user/login")
     public String login(UserLoginDTO user) throws IOException {
         User u =  userService.findByUserId(user.getId());
-        if (!passwordEncoder.matches(u.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches( user.getPw(),u.getPassword())) { // 왼쪽이 인코딩 되지 않은 값
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
         return jwtTokenProvider.createToken(u.getUsername(), u.getRoles());

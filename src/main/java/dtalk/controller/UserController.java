@@ -10,6 +10,7 @@ import dtalk.security.token.JwtTokenProvider;
 import dtalk.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.Response;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +29,12 @@ public class UserController {
 
     @GetMapping("/user/list")
     public List<UserResponseDto> userList(){
-
+        System.out.println("userList");
         return UserResponseDto.createUserResDto(userService.userList());
     }
     @PostMapping("/user")
     public Long join(UserSaveDto userSaveDto){
+        System.out.println("userController");
         userSaveDto.setPw(passwordEncoder.encode(userSaveDto.getPw()));
         return userService.save(userSaveDto);
     }
@@ -40,10 +42,12 @@ public class UserController {
 
     @PostMapping("/user/login")
     public String login(UserLoginDTO user) throws IOException {
-        User u =  userService.findByUserId(user.getId());
+        UserDetailDTO u =  new UserDetailDTO(userService.findByUserId(user.getId()));
         if (!passwordEncoder.matches( user.getPw(),u.getPassword())) { // 왼쪽이 인코딩 되지 않은 값
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return jwtTokenProvider.createToken(u.getUsername(), u.getRoles());
+        String jwt = jwtTokenProvider.createToken(u.getUsername(), u.getRoles());
+        System.out.println("jwt ====" + jwt);
+        return jwt;
     }
 }

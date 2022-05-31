@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -30,9 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         super.configure(auth);
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+    }
 
     @Bean
     @Override
@@ -43,18 +49,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable();
        httpSecurity.
                httpBasic().
                disable()
                .formLogin().disable() // 기본설정 (로그인 안 된 상태에서 요청 시 로그인 화면으로 보내기를 하지않음);
                .authorizeRequests()
-               .antMatchers(HttpMethod.POST,"/user").permitAll()
-               .antMatchers(HttpMethod.POST,"/user/login").authenticated()
-               .antMatchers(HttpMethod.GET,"/user/list").access("hasRole('ROLE_USER')")
-               .anyRequest().permitAll().and()
-               .addFilterAt(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
-               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+               .antMatchers(HttpMethod.POST,"/user/login","/user").permitAll()
+               .antMatchers(HttpMethod.GET,"/user/list").hasAnyRole("USER")
+               .anyRequest().authenticated()
+               .and()
+               .headers().frameOptions().disable().and()
+               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+               .addFilterAfter(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+       ;
     }
 
 
@@ -62,6 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
 
 
 

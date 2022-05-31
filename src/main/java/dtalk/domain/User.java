@@ -1,19 +1,20 @@
 package dtalk.domain;
 
 import dtalk.dto.UserDetailDTO;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "user_info")
-public class User extends UserDetailDTO {
+public class User{
     @Id
     @GeneratedValue
     @Column(name = "user_idx")
@@ -42,20 +43,4 @@ public class User extends UserDetailDTO {
 
     private CUTime cuTime;
 
-    @Override
-    public List<String> getRoles() {
-        List<String> s = super.getRoles();
-        s.add(this.role);
-        return s;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.getPw();
-    }
-
-    @Override
-    public String getUsername() {
-        return this.getId();
-    }
 }

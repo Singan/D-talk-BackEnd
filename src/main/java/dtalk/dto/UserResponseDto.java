@@ -12,7 +12,6 @@ import java.util.List;
 public class UserResponseDto {
     private Long idx;
     private String id;
-    private String pw;
     private String nickname;
     private String profileImg;
     private Integer bgmStatus;

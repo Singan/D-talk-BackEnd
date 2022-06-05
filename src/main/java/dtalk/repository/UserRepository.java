@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,15 +30,30 @@ public class UserRepository {
     public List<User> findAll() {
         return em.createQuery("select u from User u", User.class).getResultList();
     }
-    public Long findByUserCount(String userId){
+
+    public Long findByUserCount(String userId) {
         return em.createQuery("select count(u) from User u where u.id = :id", Long.class)
-                .setParameter("id",userId)
+                .setParameter("id", userId)
                 .getSingleResult();
     }
-    public User findByUserId(String userId){
-        return em.createQuery("select u from User u where u.id = :id", User.class)
-                .setParameter("id",userId)
-                .getSingleResult();
 
+    public User findByUserId(String userId) {
+        try {
+            return em.createQuery("select u from User u where u.id = :id", User.class)
+                    .setParameter("id", userId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new RuntimeException("해당 사용자가 없습니다.");
+        }
+    }
+
+    public User findByUser(User user) {
+        try {
+            return em.createQuery("select u from User u where u = :user", User.class)
+                    .setParameter("user", user)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new RuntimeException("해당 사용자가 없습니다.");
+        }
     }
 }

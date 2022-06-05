@@ -13,8 +13,4 @@ import javax.servlet.http.HttpServletRequest;
 public class HelloController {
 
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello(@RequestParam String name) {
-        return ResponseEntity.ok("hello " + name);
-    }
 }

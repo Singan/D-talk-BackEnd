@@ -1,15 +1,13 @@
-package dtalk.dto;
+package dtalk.dto.user;
 
-import dtalk.domain.Quiz;
 import dtalk.domain.User;
 import lombok.Data;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class UserResponseDto {
+public class UserResponseDTO {
     private Long idx;
     private String id;
     private String nickname;
@@ -17,8 +15,8 @@ public class UserResponseDto {
     private Integer bgmStatus;
     private Boolean remove;
 
-    public static UserResponseDto createUserResDto(User user) {
-        UserResponseDto userResponseDto = new UserResponseDto();
+    public static UserResponseDTO createUserResDto(User user) {
+        UserResponseDTO userResponseDto = new UserResponseDTO();
         userResponseDto.idx = user.getIdx();
         userResponseDto.id = user.getId();
         userResponseDto.nickname = user.getNickname();
@@ -28,10 +26,10 @@ public class UserResponseDto {
         return userResponseDto;
     }
 
-    public static List<UserResponseDto> createUserResDto(List<User> userList) {
-        List<UserResponseDto> list= new ArrayList<UserResponseDto>();
+    public static List<UserResponseDTO> createUserResDto(List<User> userList) {
+        List<UserResponseDTO> list= new ArrayList<UserResponseDTO>();
         for (User user : userList) {
-            UserResponseDto userResponseDto = new UserResponseDto();
+            UserResponseDTO userResponseDto = new UserResponseDTO();
             userResponseDto.idx = user.getIdx();
             userResponseDto.id = user.getId();
             userResponseDto.nickname = user.getNickname();

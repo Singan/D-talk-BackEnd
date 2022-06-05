@@ -1,13 +1,11 @@
 package dtalk.service;
 
 import dtalk.domain.User;
-import dtalk.dto.UserResponseDto;
-import dtalk.dto.UserSaveDto;
+import dtalk.dto.user.UserSaveDTO;
 import dtalk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,7 +13,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Long save(UserSaveDto userSaveDto){
+    public Long save(UserSaveDTO userSaveDto){
         User u = userSaveDto.createUser();
 
         validate(u);

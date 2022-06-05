@@ -2,11 +2,13 @@ package dtalk.domain;
 
 import dtalk.domain.status.RecordStatus;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "quiz_info")
 public class Quiz {
     @Id
@@ -22,7 +24,7 @@ public class Quiz {
     private String keyword;
 
     @Column(name = "quiz_thumb_img")
-    private String thumb_img;
+    private String thumbImg;
 
     @Column(columnDefinition = "TEXT",name = "quiz_detail")
     private String detail;

@@ -1,15 +1,12 @@
 package dtalk.security.token;
 
-import dtalk.domain.User;
-import dtalk.dto.UserDetailDTO;
+import dtalk.dto.user.UserDetailDTO;
 import dtalk.service.UserService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
     private final String secretKey = "DSCache";
-    private final long tokenValidTime = 30 * 60 * 1000L;
+    private final long tokenValidTime = 30 * 60 * 10000;
     private final UserService userService;
 
-    public String createToken(String userPk, List<String> roles) {
-        Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
+    public String createToken(String userId, List<String> roles) {
+        Claims claims = Jwts.claims().setSubject(userId); // JWT payload 에 저장되는 정보단위
         claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
-
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장
@@ -40,9 +36,6 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         UserDetailDTO userDetails = new UserDetailDTO(userService.findByUserId(this.getUserPk(token)));
         System.out.println("토큰 인증 조회 =================");
-        for (Object o :userDetails.getAuthorities()) {
-            System.out.println(o);
-        }
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -53,7 +46,6 @@ public class JwtTokenProvider {
 
     // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
     public String resolveToken(HttpServletRequest request) {
-        System.out.println("ㅁㄴㅇㅁㄴㅇㅁㄴㅇ"+request.getHeader("X-AUTH-TOKEN"));
         return request.getHeader("X-AUTH-TOKEN");
     }
 

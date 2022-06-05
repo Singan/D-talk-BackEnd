@@ -1,4 +1,4 @@
-package dtalk.dto;
+package dtalk.dto.user;
 
 import dtalk.domain.User;
 import lombok.AllArgsConstructor;

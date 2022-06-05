@@ -1,6 +1,6 @@
 package dtalk.security.token;
 
-import dtalk.dto.UserDetailDTO;
+import dtalk.dto.user.UserDetailDTO;
 import dtalk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +18,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("loadUserByUsername");
         return new UserDetailDTO(userRepository.findByUserId(username));
     }
 

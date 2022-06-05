@@ -1,4 +1,4 @@
-package dtalk.dto;
+package dtalk.dto.user;
 
 
 import dtalk.domain.User;
@@ -23,10 +23,6 @@ public class UserDetailDTO  implements UserDetails {
         this.user = user;
     }
 
-    public User getMember() {
-        return user;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collect = new ArrayList<>();
@@ -39,7 +35,12 @@ public class UserDetailDTO  implements UserDetails {
         return collect;
     }
 
-
+    public User getUser() {
+        return user;
+    }
+    public Long getIdx(){
+        return user.getIdx();
+    }
     @Override
     public String getPassword() {
         return user.getPw();

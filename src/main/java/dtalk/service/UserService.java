@@ -1,11 +1,13 @@
 package dtalk.service;
 
+import dtalk.domain.CUTime;
 import dtalk.domain.User;
 import dtalk.dto.user.UserSaveDTO;
 import dtalk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,7 +17,7 @@ public class UserService {
 
     public Long save(UserSaveDTO userSaveDto){
         User u = userSaveDto.createUser();
-
+        u.setCuTime(new CUTime(LocalDateTime.now()));
         validate(u);
         return userRepository.save(u);
 

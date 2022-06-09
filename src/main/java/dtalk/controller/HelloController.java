@@ -3,14 +3,15 @@ package dtalk.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-@RestController
+@Controller
 public class HelloController {
-
+    @GetMapping("/swagger-ui")
+    public String homeRedirect() {
+        System.out.println("스웨거 진입");
+        return "redirect:/swagger-ui.html";
+    }
 
 }

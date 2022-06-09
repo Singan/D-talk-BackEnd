@@ -3,6 +3,9 @@ package dtalk.controller;
 import dtalk.dto.user.*;
 import dtalk.security.token.JwtTokenProvider;
 import dtalk.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "UserController")
 @RequestMapping("/user")
 public class UserController {
 
@@ -20,12 +24,14 @@ public class UserController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/list")
+    @Operation(description = "회원리스트")
     public List<UserResponseDTO> userList(){
 
         return UserResponseDTO.createUserResDto(userService.userList());
     }
-    @PostMapping()
-    public Long save(@RequestBody @Valid UserSaveDTO userSaveDto){
+    @PostMapping
+    @Operation(description = "회원가입")
+    public Long save(@Parameter @RequestBody @Valid UserSaveDTO userSaveDto){
         System.out.println("userController");
         userSaveDto.setPw(passwordEncoder.encode(userSaveDto.getPw()));
         return userService.save(userSaveDto);
@@ -33,6 +39,7 @@ public class UserController {
 
 
     @PostMapping("/login")
+    @Operation(description = "로그인")
     public String login(@RequestBody @Valid UserLoginDTO user) throws IOException {
         UserDetailDTO u =  new UserDetailDTO(userService.findByUserId(user.getId()));
         if (!passwordEncoder.matches( user.getPw(),u.getPassword())) { // 왼쪽이 인코딩 되지 않은 값

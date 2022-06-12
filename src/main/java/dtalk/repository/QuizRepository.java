@@ -19,4 +19,5 @@ public class QuizRepository {
         return quiz.getIdx();
     }
 
+
 }

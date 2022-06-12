@@ -25,7 +25,7 @@ public class Record {
     @JoinColumn(name = "quiz_idx")
     private Quiz quiz;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private RecordStatus recordStatus;
 
     @Column(name="record_sec")

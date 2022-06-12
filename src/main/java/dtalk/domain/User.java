@@ -32,8 +32,9 @@ public class User{
     @Column(name = "user_role")
     private String role ;
 
-
-
+    /*@OneToMany(mappedBy = "receiveUser",fetch = FetchType.LAZY)
+    private List<FriendRequest> friendRequestList = new ArrayList();
+*/
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Quiz> quizList= new ArrayList();

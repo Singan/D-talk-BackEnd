@@ -9,11 +9,15 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "friend_info")
-public class Friend {
+@Table(name = "friend_request" ,uniqueConstraints={
+        @UniqueConstraint(name = "friend_request_unique",columnNames = {
+                "friend_sender",
+                "friend_receive"
+        })})
+public class FriendRequest {
     @Id
     @GeneratedValue
-    @Column(name = "friend_idx")
+    @Column(name = "friend_request_idx")
     private Long idx;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,7 +28,7 @@ public class Friend {
     @JoinColumn(name = "friend_receive")
     private User receiveUser;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "friend_status")
     private FriendStatus friendStatus;
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -43,15 +44,20 @@ public class FriendRepository {
     }*/
 
     public List<User> friendReceive(User user) {
-        return em.createQuery("select u FROM FriendRequest f join User u on (u=f.sendUser)  " +
-                        "where (f.receiveUser = :user) and f.friendStatus = '대기' ", User.class)
+        return em.createQuery("select f.sendUser FROM FriendRequest f  " +
+                        "where (f.receiveUser = :user)", User.class)
                 .setParameter("user", user)
                 .getResultList();
     }
 
-    public void friendRefuse(Long idx) {
-        FriendRequest friendRequest = new FriendRequest();
-        friendRequest.setIdx(idx);
-        em.remove(friendRequest);
+    @Transactional
+    public void friendRefuse(User user,User me) {
+        List<FriendRequest> friendRequest = em.createQuery(
+                "select f from FriendRequest f where " +
+                        "(f.sendUser = :user) and (f.receiveUser = :me)"
+                , FriendRequest.class)
+                .setParameter("user",user)
+                .setParameter("me",me).getResultList();
+        em.remove(friendRequest.get(0));
     }
 }

@@ -28,9 +28,5 @@ public class FriendRequest {
     @JoinColumn(name = "friend_receive")
     private User receiveUser;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "friend_status")
-    private FriendStatus friendStatus;
-
     private CUTime cuTime;
 }

@@ -26,12 +26,12 @@ public class FriendRequestController {
         return FriendRequestResponseDTO.createUserResDto(friendService.friendReceive());
     }
     @DeleteMapping
-    public List<User> friendRefuse(Long idx){
-        return friendService.friendReceive();
+    public void friendRefuse(Long idx){
+         friendService.friendRefuse(idx);
     }
     @PutMapping
-    public List<User> friendAccept(Long idx){
-        return friendService.friendReceive();
+    public void friendAccept(Long idx){
+         friendService.friendReceive();
     }
 
 

@@ -20,7 +20,6 @@ public class FriendRequestSendDTO {
         user.setIdx(userIdx);
         FriendRequest friendRequest = new FriendRequest();
         friendRequest.setCuTime(new CUTime(LocalDateTime.now()));
-        friendRequest.setFriendStatus(FriendStatus.대기);
         friendRequest.setSendUser(u);
         friendRequest.setReceiveUser(user);
 

@@ -19,6 +19,7 @@ import java.util.List;
 public class FriendService {
     private final FriendRepository friendRepository;
 
+
     public Long friendSend(FriendRequestSendDTO friendRequestSendDTO){
         UserDetailDTO u =(UserDetailDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = new User();
@@ -31,12 +32,18 @@ public class FriendService {
     }
 
     public List<User> friendList(){
-        UserDetailDTO u = (UserDetailDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return null;
     }
     public List<User> friendReceive(){
-        UserDetailDTO u = (UserDetailDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("여기까지오네 1");
-        return friendRepository.friendReceive(u.getUser());
+        UserDetailDTO me = (UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        return friendRepository.friendReceive(me.getUser());
+    }
+    public void friendRefuse(Long sendUserIdx){
+        User user = new User();
+        user.setIdx(sendUserIdx);
+        UserDetailDTO me = (UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        friendRepository.friendRefuse(user,me.getUser());
     }
 }

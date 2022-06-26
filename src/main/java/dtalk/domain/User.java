@@ -33,7 +33,11 @@ public class User{
     private String role ;
 
     @OneToMany(mappedBy = "receiveUser",fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
-    private List<FriendRequest> friendRequestList = new ArrayList();
+    private List<FriendRequest> friendReceiveList = new ArrayList();
+
+
+    @OneToMany(mappedBy = "sendUser",fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
+    private List<FriendRequest> friendSendList = new ArrayList();
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Quiz> quizList= new ArrayList();

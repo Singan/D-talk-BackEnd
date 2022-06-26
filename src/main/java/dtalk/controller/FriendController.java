@@ -1,8 +1,7 @@
 package dtalk.controller;
 
-import dtalk.domain.User;
 import dtalk.dto.user.UserResponseDTO;
-import dtalk.service.FriendService;
+import dtalk.service.FriendRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/friend")
 public class FriendController {
-    private final FriendService friendService;
+    private final FriendRequestService friendService;
     @GetMapping("/recommend")
     public List<UserResponseDTO> friendRecommend(){
 

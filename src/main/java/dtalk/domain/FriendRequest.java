@@ -20,11 +20,11 @@ public class FriendRequest {
     @Column(name = "friend_request_idx")
     private Long idx;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "friend_sender")
     private User sendUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "friend_receive")
     private User receiveUser;
 

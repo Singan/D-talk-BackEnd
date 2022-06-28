@@ -61,4 +61,5 @@ public class FriendRequestRepository {
 
         em.remove(friendRequest);
     }
+
 }

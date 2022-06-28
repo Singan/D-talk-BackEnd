@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FriendService {
@@ -15,5 +17,8 @@ public class FriendService {
     public void addFriend(User me,User user){
 
         friendRepository.addFriend(me,user);
+    }
+    public List<User> friendList(User me){
+        friendRepository.friendList(me);
     }
 }

@@ -27,9 +27,7 @@ public class FriendRequestService {
         );
     }
 
-    public List<User> friendList(){
-        return null;
-    }
+
     public List<User> friendReceive(User me){
 
         return friendRequestRepository.friendReceive(me);

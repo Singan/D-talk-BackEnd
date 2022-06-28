@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,5 +30,10 @@ public class FriendRepository {
         meFriend.setMe(you);
         meFriend.setYou(me);
     }
-
+    public List<User> friendList(User user) {
+        return em.createQuery("select f.you FROM Friend f  " +
+                        "where (f.me=:user)", User.class)
+                .setParameter("user", user)
+                .getResultList();
+    }
 }

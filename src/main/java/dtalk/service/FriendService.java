@@ -19,6 +19,10 @@ public class FriendService {
         friendRepository.addFriend(me,user);
     }
     public List<User> friendList(User me){
-        friendRepository.friendList(me);
+
+        return  friendRepository.friendList(me);
+    }
+    public void friendDelete(User me,User you){
+        friendRepository.friendDelete(me,you);
     }
 }

@@ -36,4 +36,12 @@ public class FriendRepository {
                 .setParameter("user", user)
                 .getResultList();
     }
+    public void friendDelete(User me,User you) {
+         Friend friend = em.createQuery("select f FROM Friend f  " +
+                        "where (f.me=:me) and (f.you=:you)", Friend.class)
+                .setParameter("me", me)
+                .setParameter("you", you)
+                .getSingleResult();
+         em.remove(friend);
+    }
 }

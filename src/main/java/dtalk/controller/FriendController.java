@@ -7,9 +7,7 @@ import dtalk.service.FriendRequestService;
 import dtalk.service.FriendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
@@ -27,5 +25,16 @@ public class FriendController {
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         return UserResponseDTO.createUserResDto(friendService.friendList(me));
+    }
+    @DeleteMapping
+    public void friendDelete(@RequestBody Idx idx){
+        User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        User you = new User();
+        you.setIdx(idx.idx);
+        friendService.friendDelete(me,you);
+    }
+    static class Idx{
+        private Long idx;
     }
 }

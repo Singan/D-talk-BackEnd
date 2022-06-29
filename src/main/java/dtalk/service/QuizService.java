@@ -1,6 +1,7 @@
 package dtalk.service;
 
 import dtalk.domain.Quiz;
+import dtalk.domain.Record;
 import dtalk.domain.User;
 import dtalk.dto.quiz.QuizSaveDto;
 import dtalk.dto.user.UserDetailDTO;
@@ -31,5 +32,10 @@ public class QuizService {
     public List<Quiz> myList(User user){
 
         return quizRepository.list(user);
+    };
+
+    public void quizSend(Record record){
+
+        quizRepository.quizSend(record);
     };
 }

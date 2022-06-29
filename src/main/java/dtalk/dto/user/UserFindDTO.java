@@ -4,8 +4,11 @@ import dtalk.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+
 @AllArgsConstructor
 @Getter
+@NotBlank
 public class UserFindDTO {
     private Long idx;
     private String id;

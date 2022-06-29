@@ -1,7 +1,9 @@
 package dtalk.controller;
 
+import dtalk.domain.Quiz;
 import dtalk.domain.User;
 import dtalk.dto.quiz.QuizSaveDto;
+import dtalk.dto.quiz.QuizSendDTO;
 import dtalk.dto.user.UserDetailDTO;
 import dtalk.service.QuizService;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +15,11 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/quiz")
+@Valid
 public class QuizController {
     private final QuizService quizService;
     @PostMapping
-    public Long save(@RequestBody @Valid QuizSaveDto quizSaveDto){
+    public Long save(@RequestBody QuizSaveDto quizSaveDto){
         return quizService.save(quizSaveDto);
     }
     @GetMapping
@@ -27,9 +30,8 @@ public class QuizController {
 
     }
 
-    @GetMapping("/quiz/send")
-    public void quizSend(){
-
-
+    @PostMapping("/quiz/send")
+    public void quizSend(@RequestBody QuizSendDTO quizSendDTO){
+        quizService.quizSend(quizSendDTO.getRecord());
     }
 }

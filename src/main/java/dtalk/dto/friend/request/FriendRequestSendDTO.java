@@ -3,12 +3,13 @@ package dtalk.dto.friend.request;
 import dtalk.domain.CUTime;
 import dtalk.domain.FriendRequest;
 import dtalk.domain.User;
-import dtalk.domain.status.FriendStatus;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
+@NotBlank
 public class FriendRequestSendDTO {
     private Long userIdx;
 

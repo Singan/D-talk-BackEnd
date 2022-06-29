@@ -1,12 +1,16 @@
 package dtalk.repository;
 
+import dtalk.domain.CUTime;
 import dtalk.domain.Quiz;
+import dtalk.domain.Record;
 import dtalk.domain.User;
+import dtalk.domain.status.RecordStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -23,5 +27,8 @@ public class QuizRepository {
         return em.createQuery("select q from Quiz q where q.user=:user",Quiz.class)
                 .getResultList();
     }
-
+    public void quizSend(Record record){
+        em.persist(record);
+    }
+    
 }

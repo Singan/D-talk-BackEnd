@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -22,7 +24,7 @@ public class FriendRequestController {
     private final FriendService friendService;
 
     @PostMapping
-    public Long friendSend(@RequestBody FriendRequestSendDTO friendRequestSendDTO){
+    public Long friendSend(@RequestBody @Valid FriendRequestSendDTO friendRequestSendDTO){
 
         return friendRequestService.friendSend(friendRequestSendDTO);
     }
@@ -33,17 +35,16 @@ public class FriendRequestController {
         return FriendRequestResponseDTO.createUserResDto(friendRequestService.friendReceive(me));
     }
     @DeleteMapping
-    public void friendAction(@RequestBody Action action){
+    public void friendAction(@RequestBody @Valid Action action){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         if(action.key ==0)
             friendService.addFriend(me,action.getUser());
-
-
             friendRequestService.friendRequestDelete(me,action.getUser());
     }
     @Data
     static class Action{
+        @NotBlank
         private Long idx;
         private Integer key;
         public User getUser(){

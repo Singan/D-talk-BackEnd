@@ -1,6 +1,5 @@
 package dtalk.domain;
 
-import dtalk.domain.status.FriendStatus;
 import lombok.Getter;
 import lombok.Setter;
 

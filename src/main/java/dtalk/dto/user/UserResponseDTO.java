@@ -5,11 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NotBlank
 public class UserResponseDTO {
     private Long idx;
     private String id;

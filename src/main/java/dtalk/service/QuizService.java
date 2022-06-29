@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuizService {
@@ -25,4 +27,9 @@ public class QuizService {
         quiz.setUser(user);
         return quizRepository.save(quiz);
     }
+
+    public List<Quiz> myList(User user){
+
+        return quizRepository.list(user);
+    };
 }

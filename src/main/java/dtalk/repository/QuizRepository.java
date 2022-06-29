@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,6 +19,9 @@ public class QuizRepository {
         em.persist(quiz);
         return quiz.getIdx();
     }
-
+    public List<Quiz> list(User user){
+        return em.createQuery("select q from Quiz q where q.user=:user",Quiz.class)
+                .getResultList();
+    }
 
 }

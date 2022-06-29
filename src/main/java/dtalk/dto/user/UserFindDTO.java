@@ -2,8 +2,10 @@ package dtalk.dto.user;
 
 import dtalk.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class UserFindDTO {
     private Long idx;
     private String id;

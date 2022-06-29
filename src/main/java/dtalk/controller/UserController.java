@@ -50,6 +50,7 @@ public class UserController {
         return jwt;
     }
     @GetMapping
+    @Operation(description = "유저검색")
     public UserFindDTO findUser(@RequestParam(name = "userId") String userId){
         System.out.println("파인드유저"+userId);
         return UserFindDTO.createUserFindDto(userService.findByUserId(userId));

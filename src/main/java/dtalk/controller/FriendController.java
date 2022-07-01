@@ -26,6 +26,12 @@ public class FriendController {
                 .getAuthentication().getPrincipal()).getUser();
         return UserResponseDTO.createUserResDto(friendService.friendList(me));
     }
+    @GetMapping("/count")
+    public Integer friendListCount(){
+        User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        return friendService.friendListCount(me);
+    }
     @DeleteMapping
     public void friendDelete(@RequestBody Idx idx){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()

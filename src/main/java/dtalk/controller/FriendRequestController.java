@@ -44,7 +44,6 @@ public class FriendRequestController {
     }
     @Data
     static class Action{
-        @NotBlank
         private Long idx;
         private Integer key;
         public User getUser(){

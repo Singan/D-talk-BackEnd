@@ -22,13 +22,17 @@ public class FriendRepository {
         Friend meFriend = new Friend();
         Friend youFriend = new Friend();
         CUTime cuTime = new CUTime(LocalDateTime.now());
+        youFriend.setCuTime(cuTime);
         meFriend.setCuTime(cuTime);
         meFriend.setMe(me);
         meFriend.setYou(you);
+        youFriend.setYou(me);
+        youFriend.setMe(you);
 
-        youFriend.setCuTime(cuTime);
-        meFriend.setMe(you);
-        meFriend.setYou(me);
+
+
+        em.persist(meFriend);
+        em.persist(youFriend);
     }
     public List<User> friendList(User user) {
         return em.createQuery("select f.you FROM Friend f  " +

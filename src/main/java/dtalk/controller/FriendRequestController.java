@@ -38,9 +38,13 @@ public class FriendRequestController {
     public void friendAction(@RequestBody @Valid Action action){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
+
+        System.out.println("겟IDX");
         if(action.key ==0)
             friendService.addFriend(me,action.getUser());
-            friendRequestService.friendRequestDelete(me,action.getUser());
+
+
+        friendRequestService.friendRequestDelete(me,action.getUser());
     }
     @Data
     static class Action{

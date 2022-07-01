@@ -26,7 +26,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
     public void setErrorResponse(HttpStatus status, HttpServletResponse res, Throwable ex) throws IOException {
         res.setStatus(status.value());
         res.setContentType("application/json; charset=UTF-8");
-
+        res.getWriter().write(401);
        
     }
 }

@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "friend" ,uniqueConstraints={
+@Table(name = "friend_info" ,uniqueConstraints={
         @UniqueConstraint(name = "friend_unique",columnNames = {
                 "friend_me",
                 "friend_you"

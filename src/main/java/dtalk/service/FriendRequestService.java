@@ -32,8 +32,8 @@ public class FriendRequestService {
 
         return friendRequestRepository.friendReceive(me);
     }
-    public void friendRequestDelete(User user,User me){
+    public void friendRequestDelete(User me,User user){
 
-        friendRequestRepository.friendRequestDelete(user,me);
+        friendRequestRepository.friendRequestDelete(me,user);
     }
 }

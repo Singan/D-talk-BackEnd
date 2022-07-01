@@ -49,13 +49,14 @@ public class FriendRequestRepository {
     }
 
     @Transactional
-    public void friendRequestDelete(User user,User me) {
-        System.out.println(user.getIdx());
+    public void friendRequestDelete(User me,User sender) {
+        System.out.println("센드"+sender.getIdx());
+        System.out.println("리시버"+me.getIdx());
         FriendRequest friendRequest = em.createQuery(
                 "select f from FriendRequest f where " +
-                        "(f.sendUser = :user) and (f.receiveUser = :me)"
+                        "(f.sendUser = :sender) and (f.receiveUser = :me)"
                 , FriendRequest.class)
-                .setParameter("user",user)
+                .setParameter("sender",sender)
                 .setParameter("me",me)
                 .getSingleResult(); // USER 로 받아서 USER에 있는 requestList 를 for문으로 돌려야하나?
 

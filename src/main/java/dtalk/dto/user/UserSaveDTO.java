@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Data
-@AllArgsConstructor
 public class UserSaveDTO {
     @NotBlank(message = "아이디는 빈칸 일 수 없습니다.")
     private String id;

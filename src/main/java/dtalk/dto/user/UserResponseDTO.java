@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NotBlank
 public class UserResponseDTO {
     private Long idx;
     private String id;

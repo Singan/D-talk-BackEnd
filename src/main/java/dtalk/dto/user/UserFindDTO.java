@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 
 @AllArgsConstructor
 @Getter
-@NotBlank
 public class UserFindDTO {
     private Long idx;
     private String id;

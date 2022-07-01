@@ -7,8 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-@AllArgsConstructor
-@NotBlank
+
 public class UserUpdateDTO {
     private String pw;
     private String nickname;

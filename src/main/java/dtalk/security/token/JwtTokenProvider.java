@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -51,17 +53,20 @@ public class JwtTokenProvider {
 
     // 토큰의 유효성 + 만료일자 확인
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token) throws IOException {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
         } catch (SignatureException e) {
             System.out.println("jwt 서명 확인 x");
+
         } catch (MalformedJwtException e) {
             System.out.println("jwt 올바르게 구성 x");
         } catch (ExpiredJwtException e) {
             SecurityContextHolder.clearContext();
             System.out.println("jwt 기간 종료");
+
+
         } catch (UnsupportedJwtException e) {
             System.out.println("jwt 형식이 다름");
         } catch (IllegalArgumentException e) {

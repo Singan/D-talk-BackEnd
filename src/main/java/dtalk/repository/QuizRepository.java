@@ -24,11 +24,12 @@ public class QuizRepository {
         return quiz.getIdx();
     }
     public List<Quiz> list(User user){
-        return em.createQuery("select q from Quiz q where q.user=:user",Quiz.class)
+        return em.createQuery("select q from Quiz q where q.user=:user order by q.cuTime.createdAt asc",Quiz.class)
+                .setFirstResult(0).setMaxResults(10)
                 .getResultList();
     }
     public void quizSend(Record record){
         em.persist(record);
     }
-    
+
 }

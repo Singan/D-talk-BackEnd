@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
-@NotBlank
 public class FriendRequestSendDTO {
     private Long userIdx;
 

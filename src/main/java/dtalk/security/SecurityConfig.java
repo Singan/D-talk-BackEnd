@@ -2,6 +2,7 @@
 package dtalk.security;
 
 import dtalk.security.token.JwtAuthFilter;
+import dtalk.security.token.JwtExceptionFilter;
 import dtalk.security.token.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
@@ -72,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                .headers().frameOptions().disable().and()
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                .addFilterAfter(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+               /*.addFilterBefore(new JwtExceptionFilter(), JwtAuthFilter.class)*/
        ;
     }
 

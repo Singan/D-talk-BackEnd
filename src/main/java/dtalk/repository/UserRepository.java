@@ -56,4 +56,13 @@ public class UserRepository {
             throw new RuntimeException("해당 사용자가 없습니다.");
         }
     }
+    @Transactional
+    public void updateUser(User user){
+        User user1 = em.find(User.class,user.getIdx());
+        user1.setBgmStatus(user.getBgmStatus());
+        user1.setProfileImg(user.getProfileImg());
+        user1.setNickname(user.getNickname());
+        em.merge(user);
+
+    }
 }

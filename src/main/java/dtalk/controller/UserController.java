@@ -1,5 +1,6 @@
 package dtalk.controller;
 
+import dtalk.domain.User;
 import dtalk.dto.user.*;
 import dtalk.security.token.JwtTokenProvider;
 import dtalk.service.UserService;
@@ -7,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,5 +56,25 @@ public class UserController {
     public UserFindDTO findUser(@RequestParam(name = "userId") String userId){
         System.out.println("파인드유저"+userId);
         return UserFindDTO.createUserFindDto(userService.findByUserId(userId));
+    }
+    @GetMapping("/profile")
+    @Operation(description = "유저 프로필")
+    public UserUpdateDTO profileUser(){
+        User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        return UserUpdateDTO.createUserUpdateDTO(me);
+    }
+    @PutMapping("/profile")
+    @Operation(description = "유저 프로필")
+    public void UpdateUser(@RequestBody UserUpdateDTO userUpdateDTO){
+        User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        System.out.println(me.getIdx());
+        me.setNickname(userUpdateDTO.getNickname());
+        me.setProfileImg(userUpdateDTO.getProfileImg());
+        me.setBgmStatus(userUpdateDTO.getBgmStatus());
+
+        System.out.println(userUpdateDTO.getNickname());
+        userService.UpdateUser(me);
     }
 }

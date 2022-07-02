@@ -40,7 +40,6 @@ public class UserResponseDTO {
                     user.getProfileImg(),
                     user.getBgmStatus());
             list.add(userResponseDTO);
-
         }
         return list;
     }

@@ -3,6 +3,7 @@ package dtalk.service;
 import dtalk.domain.CUTime;
 import dtalk.domain.User;
 import dtalk.dto.user.UserSaveDTO;
+import dtalk.dto.user.UserUpdateDTO;
 import dtalk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,4 +37,10 @@ public class UserService {
     public User findByUserId(String id){
         return userRepository.findByUserId(id);
     }
+    public void UpdateUser(User user){
+
+
+        userRepository.updateUser(user);
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,10 +24,10 @@ public class QuizController {
         return quizService.save(quizSaveDto);
     }
     @GetMapping
-    public void myList(){
+    public List<Quiz> myList(){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
-        quizService.myList(me);
+        return quizService.myList(me);
 
     }
 

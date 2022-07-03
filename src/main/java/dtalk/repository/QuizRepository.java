@@ -28,6 +28,10 @@ public class QuizRepository {
                 .setFirstResult(0).setMaxResults(10)
                 .getResultList();
     }
+    public Integer countList(User user){
+        return em.createQuery("select count(q) from Quiz q where q.user=:user",Integer.class)
+                .getSingleResult();
+    }
     public void quizSend(Record record){
         em.persist(record);
     }

@@ -62,7 +62,6 @@ public class UserRepository {
         user1.setBgmStatus(user.getBgmStatus());
         user1.setProfileImg(user.getProfileImg());
         user1.setNickname(user.getNickname());
-        em.merge(user);
 
     }
 }

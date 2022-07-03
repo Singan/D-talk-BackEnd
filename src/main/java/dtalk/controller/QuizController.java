@@ -28,9 +28,18 @@ public class QuizController {
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         return quizService.myList(me);
-
     }
-
+    @GetMapping("/count")
+    public Integer countList(Long idx){
+        User user = new User();
+        user.setIdx(idx);
+        if(idx == null) {
+            User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                    .getAuthentication().getPrincipal()).getUser();
+            user.setIdx(me.getIdx());
+        }
+        return quizService.listCount(user);
+    }
     @PostMapping("/quiz/send")
     public void quizSend(@RequestBody QuizSendDTO quizSendDTO){
         quizService.quizSend(quizSendDTO.getRecord());

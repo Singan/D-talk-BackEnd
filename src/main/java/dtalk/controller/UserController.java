@@ -3,6 +3,7 @@ package dtalk.controller;
 import dtalk.domain.User;
 import dtalk.dto.user.*;
 import dtalk.security.token.JwtTokenProvider;
+import dtalk.service.QuizService;
 import dtalk.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,6 +23,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final QuizService quizService;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -55,7 +57,10 @@ public class UserController {
     @Operation(description = "유저검색")
     public UserFindDTO findUser(@RequestParam(name = "userId") String userId){
         System.out.println("파인드유저"+userId);
-        return UserFindDTO.createUserFindDto(userService.findByUserId(userId));
+        User findUser = userService.findByUserId(userId);
+        Integer count = quizService.listCount(findUser);
+
+        return UserFindDTO.createUserFindDto(findUser,count);
     }
     @GetMapping("/profile")
     @Operation(description = "유저 프로필")
@@ -70,11 +75,12 @@ public class UserController {
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         System.out.println(me.getIdx());
-        me.setNickname(userUpdateDTO.getNickname());
-        me.setProfileImg(userUpdateDTO.getProfileImg());
-        me.setBgmStatus(userUpdateDTO.getBgmStatus());
-
-        System.out.println(userUpdateDTO.getNickname());
+        if(me.getNickname()!=null)
+            me.setNickname(userUpdateDTO.getNickname());
+        if(me.getProfileImg()!=null)
+            me.setProfileImg(userUpdateDTO.getProfileImg());
+        if(me.getBgmStatus()!=null)
+            me.setBgmStatus(userUpdateDTO.getBgmStatus());
         userService.UpdateUser(me);
     }
 }

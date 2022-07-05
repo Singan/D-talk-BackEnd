@@ -30,6 +30,7 @@ public class QuizRepository {
     }
     public Long countList(User user){
         return em.createQuery("select count(q) from Quiz q where q.user=:user",Long.class)
+                .setParameter("user",user)
                 .getSingleResult();
     }
     public void quizSend(Record record){

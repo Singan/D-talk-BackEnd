@@ -25,7 +25,7 @@ public class FriendService {
     public void friendDelete(User me,User you){
         friendRepository.friendDelete(me,you);
     }
-    public Integer friendListCount(User me){
+    public Long friendListCount(User me){
 
         return  friendRepository.friendListCount(me);
     }

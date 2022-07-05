@@ -32,11 +32,14 @@ public class QuizService {
     public List<Quiz> myList(User user){
         return quizRepository.list(user);
     };
-    public Integer listCount(User user){
+    public Long listCount(User user){
         return quizRepository.countList(user);
     };
     public void quizSend(Record record){
 
         quizRepository.quizSend(record);
     };
+    public Quiz findQuiz(Long idx){
+        return quizRepository.findQuiz(idx);
+    }
 }

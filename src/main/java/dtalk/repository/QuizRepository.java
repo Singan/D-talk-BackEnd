@@ -28,12 +28,16 @@ public class QuizRepository {
                 .setFirstResult(0).setMaxResults(10)
                 .getResultList();
     }
-    public Integer countList(User user){
-        return em.createQuery("select count(q) from Quiz q where q.user=:user",Integer.class)
+    public Long countList(User user){
+        return em.createQuery("select count(q) from Quiz q where q.user=:user",Long.class)
                 .getSingleResult();
     }
     public void quizSend(Record record){
         em.persist(record);
+    }
+
+    public Quiz findQuiz(Long idx){
+        return em.find(Quiz.class,idx);
     }
 
 }

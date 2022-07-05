@@ -5,6 +5,7 @@ import dtalk.dto.user.UserDetailDTO;
 import dtalk.dto.user.UserResponseDTO;
 import dtalk.service.FriendRequestService;
 import dtalk.service.FriendService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class FriendController {
         you.setIdx(idx.idx);
         friendService.friendDelete(me,you);
     }
+    @Data
     static class Idx{
         private Long idx;
     }

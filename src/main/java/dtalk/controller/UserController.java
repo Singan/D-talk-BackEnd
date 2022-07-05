@@ -58,7 +58,7 @@ public class UserController {
     public UserFindDTO findUser(@RequestParam(name = "userId") String userId){
         System.out.println("파인드유저"+userId);
         User findUser = userService.findByUserId(userId);
-        Integer count = quizService.listCount(findUser);
+        Long count = quizService.listCount(findUser);
 
         return UserFindDTO.createUserFindDto(findUser,count);
     }

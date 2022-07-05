@@ -40,9 +40,9 @@ public class FriendRepository {
                 .setParameter("user", user)
                 .getResultList();
     }
-    public Integer friendListCount(User user) {
+    public Long friendListCount(User user) {
         return em.createQuery("select count(f) FROM Friend f  " +
-                        "where (f.me=:user)", Integer.class)
+                        "where (f.me=:user)", Long.class)
                 .setParameter("user", user)
                 .getSingleResult();
     }

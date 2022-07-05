@@ -6,6 +6,7 @@ import dtalk.dto.quiz.QuizSaveDto;
 import dtalk.dto.quiz.QuizSendDTO;
 import dtalk.dto.user.UserDetailDTO;
 import dtalk.service.QuizService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +31,9 @@ public class QuizController {
         return quizService.myList(me);
     }
     @GetMapping("/count")
-    public Long countList(Long idx){
+    public Long countList(Idx idx){
         User user = new User();
-        user.setIdx(idx);
+        user.setIdx(idx.idx);
         if(idx == null) {
             User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                     .getAuthentication().getPrincipal()).getUser();
@@ -43,5 +44,9 @@ public class QuizController {
     @PostMapping("/quiz/send")
     public void quizSend(@RequestBody QuizSendDTO quizSendDTO){
         quizService.quizSend(quizSendDTO.getRecord());
+    }
+    @Data
+    static class Idx{
+        private Long idx;
     }
 }

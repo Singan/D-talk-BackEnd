@@ -13,7 +13,7 @@ public class UserFindDTO {
     private String id;
     private String nickname;
     private String profileImg;
-    private Integer quizCount;
+    private Long quizCount;
     public static UserFindDTO createUserFindDto(User user,Long quizCount){
         UserFindDTO userFindDto = new UserFindDTO(user.getIdx(), user.getId(), user.getNickname(), user.getProfileImg(),quizCount);
         return userFindDto;

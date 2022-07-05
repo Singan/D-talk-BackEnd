@@ -31,9 +31,9 @@ public class QuizController {
         return quizService.myList(me);
     }
     @GetMapping("/count")
-    public Long countList(Idx idx){
+    public Long countList(@RequestParam Long idx){
         User user = new User();
-        user.setIdx(idx.idx);
+        user.setIdx(idx);
         if(idx == null) {
             User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                     .getAuthentication().getPrincipal()).getUser();

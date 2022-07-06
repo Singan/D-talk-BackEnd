@@ -31,7 +31,7 @@ public class QuizController {
         return quizService.myList(me);
     }
     @GetMapping("/count")
-    public Long countList(@RequestParam Long idx){
+    public Long countList(@RequestParam(required = false) Long idx){
         User user = new User();
         user.setIdx(idx);
         if(idx == null) {

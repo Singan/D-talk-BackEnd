@@ -34,15 +34,12 @@ public class FriendController {
         return friendService.friendListCount(me);
     }
     @DeleteMapping
-    public void friendDelete(@RequestBody Idx idx){
+    public void friendDelete(@RequestParam(required = false) Long idx){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         User you = new User();
-        you.setIdx(idx.idx);
+        you.setIdx(idx);
         friendService.friendDelete(me,you);
     }
-    @Data
-    static class Idx{
-        private Long idx;
-    }
+
 }

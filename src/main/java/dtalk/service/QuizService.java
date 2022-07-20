@@ -42,4 +42,5 @@ public class QuizService {
     public Quiz findQuiz(Long idx){
         return quizRepository.findQuiz(idx);
     }
+
 }

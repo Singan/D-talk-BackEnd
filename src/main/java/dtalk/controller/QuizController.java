@@ -5,7 +5,9 @@ import dtalk.domain.User;
 import dtalk.dto.quiz.QuizSaveDto;
 import dtalk.dto.quiz.QuizSendDTO;
 import dtalk.dto.user.UserDetailDTO;
+import dtalk.dto.user.UserResponseDTO;
 import dtalk.service.QuizService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +33,7 @@ public class QuizController {
         return quizService.myList(me);
     }
     @GetMapping("/count")
+    @Operation(description = "퀴즈 수")
     public Long countList(@RequestParam(required = false) Long idx){
         User user = new User();
         user.setIdx(idx);
@@ -42,9 +45,13 @@ public class QuizController {
         return quizService.listCount(user);
     }
     @PostMapping("/quiz/send")
+    @Operation(description = "퀴즈 보내기")
     public void quizSend(@RequestBody QuizSendDTO quizSendDTO){
         quizService.quizSend(quizSendDTO.getRecord());
     }
+
+
+
     @Data
     static class Idx{
         private Long idx;

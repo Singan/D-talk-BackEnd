@@ -16,11 +16,7 @@ import java.util.List;
 @RequestMapping("/friend")
 public class FriendController {
     private final FriendService friendService;
-    @GetMapping("/recommend")
-    public List<UserResponseDTO> friendRecommend(){
 
-        return null;
-    }
     @GetMapping()
     public List<UserResponseDTO> friendList(){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()

@@ -36,6 +36,7 @@ public class QuizSendDTO {
         record.setUser(getUser());
         record.setRecordStatus(RecordStatus.대기);
         record.setCuTime(new CUTime(LocalDateTime.now()));
+        record.setLike(0);
         return record;
     }
 }

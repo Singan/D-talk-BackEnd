@@ -31,10 +31,10 @@ public class RecordController {
     }
     @GetMapping
     @Operation(description = "유저의 좋아요 수")
-    public void likeQuiz(@RequestBody FindRecord findRecord){
+    public Long likeQuiz(@RequestBody FindRecord findRecord){
         User user = new User();
         user.setIdx(findRecord.getUserIdx());
-
+        return recordService.userRecommendCount(user);
     }
     @GetMapping("/recommend")
     @Operation(description = "퀴즈 좋아요")

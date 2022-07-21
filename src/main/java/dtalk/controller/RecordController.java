@@ -47,16 +47,9 @@ public class RecordController {
     }
     @Data
     static class FindRecord{
-        private Long userIdx;
-        private Long quizIdx;
-        private Long getUserIdx(){
-            User me = ((UserDetailDTO) SecurityContextHolder.getContext()
-                    .getAuthentication().getPrincipal()).getUser();
-            if(this.userIdx == null)
-                userIdx = me.getIdx();
 
-            return this.userIdx;
-        }
+        private Long quizIdx;
+
 
     }
 }

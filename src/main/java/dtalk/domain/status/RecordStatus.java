@@ -1,5 +1,5 @@
 package dtalk.domain.status;
 
 public enum RecordStatus {
-    wait,success,fail
+    대기,성공,실패
 }

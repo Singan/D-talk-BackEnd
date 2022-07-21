@@ -27,7 +27,7 @@ public class QuizSendDTO {
     };
     private User getUser(){
         User user = new User();
-        user.setIdx(quizIdx);
+        user.setIdx(userIdx);
         return user;
     };
     public Record getRecord(){
@@ -37,6 +37,7 @@ public class QuizSendDTO {
         record.setRecordStatus(RecordStatus.대기);
         record.setCuTime(new CUTime(LocalDateTime.now()));
         record.setLike(0);
+
         return record;
     }
 }

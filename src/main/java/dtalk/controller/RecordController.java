@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/record")
-
 public class RecordController {
     private final QuizService quizService;
     private final RecordService recordService;
@@ -31,18 +30,18 @@ public class RecordController {
     }
     @GetMapping
     @Operation(description = "유저의 좋아요 수")
-    public Long likeQuiz(@RequestBody FindRecord findRecord){
+    public Long likeQuiz(@RequestParam Long userIdx){
         User user = new User();
-        user.setIdx(findRecord.getUserIdx());
+        user.setIdx(userIdx);
         return recordService.userRecommendCount(user);
     }
-    @GetMapping("/recommend")
+    @PatchMapping("/recommend")
     @Operation(description = "퀴즈 좋아요")
-    public void quizRecommend(@RequestBody FindRecord idx){
+    public void quizRecommend(@RequestParam FindRecord findRecord){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         Quiz quiz = new Quiz();
-        quiz.setIdx(idx.quizIdx);
+        quiz.setIdx(findRecord.quizIdx);
         recordService.quizRecommend(me,quiz);
 
     }

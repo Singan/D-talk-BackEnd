@@ -26,6 +26,7 @@ public class Record {
     private Quiz quiz;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "record_status")
     private RecordStatus recordStatus;
 
     @Column(name="record_sec")

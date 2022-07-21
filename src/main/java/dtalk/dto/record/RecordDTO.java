@@ -20,9 +20,6 @@ public class RecordDTO {
                 .getAuthentication().getPrincipal()).getUser();
         Record record = new Record();
 
-        record.setUser(me);
-        record.setCuTime(new CUTime(LocalDateTime.now()));
-        record.setRecordStatus(RecordStatus.대기);
 
         return record;
     }

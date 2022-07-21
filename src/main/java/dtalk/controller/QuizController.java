@@ -44,7 +44,7 @@ public class QuizController {
         }
         return quizService.listCount(user);
     }
-    @PostMapping("/quiz/send")
+    @PostMapping("/send")
     @Operation(description = "퀴즈 보내기")
     public void quizSend(@RequestBody QuizSendDTO quizSendDTO){
         quizService.quizSend(quizSendDTO.getRecord());

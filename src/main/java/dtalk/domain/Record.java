@@ -33,5 +33,6 @@ public class Record {
 
     @Column(name = "record_like")
     private Integer like;
+
     private CUTime cuTime;
 }

@@ -33,6 +33,7 @@ public class QuizRepository {
                 .setParameter("user",user)
                 .getSingleResult();
     }
+    @Transactional
     public void quizSend(Record record){
         em.persist(record);
     }

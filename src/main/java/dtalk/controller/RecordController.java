@@ -37,7 +37,7 @@ public class RecordController {
     }
     @PatchMapping("/recommend")
     @Operation(description = "퀴즈 좋아요")
-    public void quizRecommend(@RequestParam FindRecord findRecord){
+    public void quizRecommend(@RequestBody FindRecord findRecord){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         Quiz quiz = new Quiz();

@@ -2,6 +2,7 @@ package dtalk.controller;
 
 import dtalk.domain.Quiz;
 import dtalk.domain.User;
+import dtalk.dto.quiz.QuizListDTO;
 import dtalk.dto.quiz.QuizSaveDto;
 import dtalk.dto.quiz.QuizSendDTO;
 import dtalk.dto.user.UserDetailDTO;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,11 +28,22 @@ public class QuizController {
     public Long save(@RequestBody QuizSaveDto quizSaveDto){
         return quizService.save(quizSaveDto);
     }
+
     @GetMapping
-    public List<Quiz> myList(){
+    @Operation(description = "퀴즈디테일")
+    public String detail(@RequestParam(required = false) Long idx){
+        return quizService.findQuiz(idx).getDetail();
+    }
+    @GetMapping
+    public List<QuizListDTO> myList(){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
-        return quizService.myList(me);
+        List<Quiz> quizList = quizService.myList(me);
+        List<QuizListDTO> responseList = new ArrayList<>();
+        for (Quiz quiz: quizList) {
+            responseList.add(QuizListDTO.getQuizListDTO(quiz));
+        }
+        return responseList;
     }
     @GetMapping("/count")
     @Operation(description = "퀴즈 수")

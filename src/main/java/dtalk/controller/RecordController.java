@@ -23,11 +23,11 @@ import java.util.List;
 public class RecordController {
     private final QuizService quizService;
     private final RecordService recordService;
-/*    @PutMapping
+    @PutMapping
     @Operation(description = "게임 플레이")
     public void playQuiz( @RequestBody RecordDTO recordDTO){
         Quiz quiz = quizService.findQuiz(recordDTO.getQuizIdx());
-    }*/
+    }
     @GetMapping
     @Operation(description = "유저의 좋아요 수")
     public Long likeQuiz(@RequestParam Long userIdx){

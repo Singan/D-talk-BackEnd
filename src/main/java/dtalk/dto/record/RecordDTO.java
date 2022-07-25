@@ -15,12 +15,17 @@ import java.time.LocalDateTime;
 public class RecordDTO {
     private Long quizIdx;
     private String answer;
-    public Record getRecord(Quiz quiz){
+    private Integer sec;
+    public Record getRecord(){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         Record record = new Record();
-
-
+        Quiz quiz = new Quiz();
+        quiz.setIdx(quizIdx);
+        record.setQuiz(quiz);
+        record.setUser(me);
+        record.setSec(sec);
+        record.setRecordStatus(RecordStatus.성공);
         return record;
     }
 }

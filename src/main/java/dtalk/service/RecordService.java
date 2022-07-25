@@ -25,4 +25,7 @@ public class RecordService {
         record.setUser(user);
         return recordRepository.userRecommendCount(record);
     }
+    public void quizPlay(User user,Quiz quiz){
+
+    }
 }

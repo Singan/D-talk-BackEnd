@@ -5,9 +5,11 @@ import dtalk.domain.User;
 import dtalk.dto.quiz.QuizListDTO;
 import dtalk.dto.quiz.QuizSaveDto;
 import dtalk.dto.quiz.QuizSendDTO;
+import dtalk.dto.record.RecordDTO;
 import dtalk.dto.user.UserDetailDTO;
 import dtalk.dto.user.UserResponseDTO;
 import dtalk.service.QuizService;
+import dtalk.service.RecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ import java.util.List;
 @Valid
 public class QuizController {
     private final QuizService quizService;
+    private final RecordService recordService;
     @PostMapping
     public Long save(@RequestBody QuizSaveDto quizSaveDto){
         return quizService.save(quizSaveDto);
@@ -33,6 +36,17 @@ public class QuizController {
     @Operation(description = "퀴즈디테일")
     public String detail(@RequestParam(required = false) Long idx){
         return quizService.findQuiz(idx).getDetail();
+    }
+    @PutMapping
+    @Operation(description = "게임 플레이")
+    public Boolean playQuiz( @RequestBody RecordDTO recordDTO){
+        Quiz quiz = quizService.findQuiz(recordDTO.getQuizIdx());
+        if(recordDTO.getAnswer() ==quiz.getKeyword()){
+
+
+            return true;
+        };
+        return false;
     }
     @GetMapping
     public List<QuizListDTO> myList(){

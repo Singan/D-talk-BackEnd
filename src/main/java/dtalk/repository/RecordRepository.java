@@ -31,4 +31,15 @@ public class RecordRepository {
                 .getSingleResult();
         return likeCount;
     }
+    public Record findRecord(Record record){
+        Record record1 = em.createQuery("select r from Record r where r.user=:user and r.quiz=:quiz",
+                        Record.class)
+                .setParameter("user",record.getUser())
+                .setParameter("quiz",record.getQuiz())
+                .getSingleResult();
+        return record1;
+    }
+    public void updateRecord(Record record){
+        em.persist(record);
+    }
 }

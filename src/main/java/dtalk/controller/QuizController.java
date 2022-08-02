@@ -41,12 +41,14 @@ public class QuizController {
     @Operation(description = "게임 플레이")
     public Boolean playQuiz( @RequestBody RecordDTO recordDTO){
         Quiz quiz = quizService.findQuiz(recordDTO.getQuizIdx());
+        User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        boolean flag = false;
         if(recordDTO.getAnswer() ==quiz.getKeyword()){
-
-
-            return true;
+            flag = true;
         };
-        return false;
+        recordService.quizPlay(me,quiz,flag);
+        return flag;
     }
     @GetMapping
     public List<QuizListDTO> myList(){

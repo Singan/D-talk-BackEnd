@@ -3,6 +3,7 @@ package dtalk.service;
 import dtalk.domain.Quiz;
 import dtalk.domain.Record;
 import dtalk.domain.User;
+import dtalk.domain.status.RecordStatus;
 import dtalk.repository.QuizRepository;
 import dtalk.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +20,26 @@ public class RecordService {
         record.setUser(user);
         recordRepository.quizRecommend(record);
     }
+    public Record findRecord(Record record){
+        return recordRepository.findRecord(record);
+    }
+
     public Long userRecommendCount(User user){
         Record record = new Record();
 
         record.setUser(user);
         return recordRepository.userRecommendCount(record);
     }
-    public void quizPlay(User user,Quiz quiz){
-
+    public void quizPlay(User user,Quiz quiz,boolean flag){
+        Record record = new Record();
+        record.setUser(user);
+        record.setQuiz(quiz);
+        Record findRecord = this.findRecord(record);
+        RecordStatus recordStatus = RecordStatus.실패;
+        if(flag){
+            recordStatus = RecordStatus.성공;
+        }
+        findRecord.setRecordStatus(recordStatus);
+        recordRepository.updateRecord(findRecord);
     }
 }

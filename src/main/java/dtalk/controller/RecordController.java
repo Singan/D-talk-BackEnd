@@ -3,6 +3,8 @@ package dtalk.controller;
 import dtalk.domain.Quiz;
 import dtalk.domain.Record;
 import dtalk.domain.User;
+import dtalk.dto.quiz.QuizListDTO;
+import dtalk.dto.quiz.ReceiveQuizDTO;
 import dtalk.dto.record.RecordDTO;
 import dtalk.dto.user.UserDetailDTO;
 import dtalk.dto.user.UserResponseDTO;
@@ -15,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -41,9 +44,19 @@ public class RecordController {
         recordService.quizRecommend(me,quiz);
 
     }
+    @GetMapping("/receive")
+    @Operation(description = "내가 받은 퀴즈 리스트")
+    public List<ReceiveQuizDTO> receiveQuizList(){
+        User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        List<ReceiveQuizDTO> responseList = new ArrayList<>();
+        for (Quiz quiz: recordService.receiveQuizList(me)) {
+            responseList.add(ReceiveQuizDTO.getQuizListDTO(quiz));
+        }
+        return responseList;
+    }
     @Data
     static class FindRecord{
-
         private Long quizIdx;
 
 

@@ -11,6 +11,7 @@ public class QuizListDTO {
     private Long idx;
     private String thumbImg;
     private Integer sec;
+
     public static QuizListDTO getQuizListDTO(Quiz quiz){
         QuizListDTO quizListDTO = new QuizListDTO();
         quizListDTO.setIdx(quiz.getIdx());

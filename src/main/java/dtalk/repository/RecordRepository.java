@@ -1,11 +1,14 @@
 package dtalk.repository;
 
+import dtalk.domain.Quiz;
 import dtalk.domain.Record;
+import dtalk.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,5 +44,10 @@ public class RecordRepository {
     }
     public void updateRecord(Record record){
         em.persist(record);
+    }
+
+    public List<Quiz> receiveQuizList(User user){
+        return em.createQuery("select r.quiz from Record r where r.user=:user",
+                Quiz.class).setParameter("user",user).getResultList();
     }
 }

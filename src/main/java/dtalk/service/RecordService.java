@@ -9,6 +9,8 @@ import dtalk.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RecordService {
@@ -41,5 +43,8 @@ public class RecordService {
         }
         findRecord.setRecordStatus(recordStatus);
         recordRepository.updateRecord(findRecord);
+    }
+    public List<Quiz> receiveQuizList(User user){
+        return recordRepository.receiveQuizList(user);
     }
 }

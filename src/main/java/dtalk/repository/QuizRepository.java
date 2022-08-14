@@ -26,6 +26,7 @@ public class QuizRepository {
     public List<Quiz> list(User user){
         return em.createQuery("select q from Quiz q where q.user=:user order by q.cuTime.createdAt asc",Quiz.class)
                 .setFirstResult(0).setMaxResults(10)
+                .setParameter("user",user)
                 .getResultList();
     }
     public Long countList(User user){
@@ -37,7 +38,7 @@ public class QuizRepository {
     public void quizSend(Record record){
         em.persist(record);
     }
-
+    @Transactional
     public Quiz findQuiz(Long idx){
         return em.find(Quiz.class,idx);
     }

@@ -50,7 +50,7 @@ public class QuizController {
         recordService.quizPlay(me,quiz,flag);
         return flag;
     }
-    @GetMapping
+    @GetMapping("/list")
     public List<QuizListDTO> myList(){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -43,4 +45,11 @@ public class QuizRepository {
         return em.find(Quiz.class,idx);
     }
 
+    public List<Quiz> rankQuizList(LocalDateTime prev , LocalDateTime next){
+        return em.createQuery("select q from Record r join r.quiz q" +
+                        " where q.cuTime.createdAt between :prev and :next order by r.like desc",Quiz.class)
+                .setParameter("prev",prev)
+                .setParameter("next",next)
+                .getResultList();
+    }
 }

@@ -10,7 +10,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 @Entity
 @Getter
 @Setter
-@Table(name = "record_info")
+@Table(name = "record_info" ,uniqueConstraints={
+        @UniqueConstraint(name = "record__unique",columnNames = {
+                "user_idx",
+                "quiz_idx"
+        })})
 public class Record {
     @Id
     @GeneratedValue

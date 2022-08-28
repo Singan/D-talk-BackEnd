@@ -25,7 +25,9 @@ public class RecordService {
     public Record findRecord(Record record){
         return recordRepository.findRecord(record);
     }
-
+    public Long findRecordLike(Quiz quiz){
+        return recordRepository.findRecordLike(quiz);
+    }
     public Long userRecommendCount(User user){
         Record record = new Record();
 

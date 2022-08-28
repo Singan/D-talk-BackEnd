@@ -37,4 +37,7 @@ public class Quiz {
     private Boolean remove;
 
     private CUTime cuTime;
+
+    @OneToOne(mappedBy = "quiz")
+    private Rank rank;
 }

@@ -46,10 +46,12 @@ public class QuizRepository {
     }
 
     public List<Quiz> rankQuizList(LocalDateTime prev , LocalDateTime next){
-        return em.createQuery("select q from Record r join r.quiz q" +
-                        " where q.cuTime.createdAt between :prev and :next order by r.like desc",Quiz.class)
+        return em.createQuery("select r.quiz from Record r  where r.quiz.cuTime.createdAt between :prev and :next group by r.quiz " +
+                        " order by r.like desc",Quiz.class)
                 .setParameter("prev",prev)
                 .setParameter("next",next)
+                .setFirstResult(0)
+                .setMaxResults(20)
                 .getResultList();
     }
 }

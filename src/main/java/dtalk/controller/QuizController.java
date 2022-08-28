@@ -76,6 +76,10 @@ public class QuizController {
     @PostMapping("/send")
     @Operation(description = "퀴즈 보내기")
     public void quizSend(@RequestBody QuizSendDTO quizSendDTO){
+        User me = ((UserDetailDTO) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        if(quizSendDTO.getUserIdx()==me.getIdx())
+            return;
         quizService.quizSend(quizSendDTO.getRecord());
     }
 

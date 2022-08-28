@@ -19,6 +19,10 @@ public  class Rank {
     @Column(name = "rank_num")
     private Integer rank;
 
+    @JoinColumn(name = "rank_quiz")
+    @OneToOne(fetch = FetchType.LAZY)
+    private Quiz quiz;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "batch_idx")
     private Batch batch;

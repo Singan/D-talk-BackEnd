@@ -53,17 +53,18 @@ public class RankScheduler {
         }
 
     }
-    @Scheduled(cron = " 0 0 0 * * *")
+    @Scheduled(cron = " 0 32 3 * * *")
     public void daysRank(){
-        LocalDateTime  localDateTime2 = LocalDateTime.now();
-        LocalDateTime  localDateTime1 = localDateTime2.minusDays(-1);
-
+        LocalDateTime  next = LocalDateTime.now();
+        LocalDateTime  prev = next.minusDays(-100);
+        System.out.println("일간랭킹");
         Batch batch = new Batch();
         batch.setCuTime(new CUTime(LocalDateTime.now()));
         batch.setType(BatchType.일간);
-        List<Quiz> quizList = quizService.rankQuizList(localDateTime1,localDateTime2);
+        List<Quiz> quizList = quizService.rankQuizList(next,prev);
         batchRepository.batchIdx(batch);
         for(int i = 0 ; i <quizList.size() ; i++){
+            System.out.println("들어오나?");
             Rank rank = new Rank();
             rank.setRank(i+1);
             rank.setQuiz(quizList.get(i));

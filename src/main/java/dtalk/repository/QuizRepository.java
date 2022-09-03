@@ -46,10 +46,11 @@ public class QuizRepository {
     }
 
     public List<Quiz> rankQuizList(LocalDateTime prev , LocalDateTime next){
-        return em.createQuery("select r.quiz from Record r  where r.quiz.cuTime.createdAt between :prev and :next group by r.quiz " +
+        System.out.println("퀴즈랭킹리스트 실행");
+        return em.createQuery("select r.quiz from Record r  " +
                         " order by r.like desc",Quiz.class)
-                .setParameter("prev",prev)
-                .setParameter("next",next)
+/*                .setParameter("prev",prev)
+                .setParameter("next",next)*/
                 .setFirstResult(0)
                 .setMaxResults(20)
                 .getResultList();

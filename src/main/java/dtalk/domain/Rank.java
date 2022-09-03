@@ -9,7 +9,9 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Table(name="rank")
+/*
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+*/
 public  class Rank {
     @Id
     @GeneratedValue

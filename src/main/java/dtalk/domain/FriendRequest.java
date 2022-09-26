@@ -15,7 +15,7 @@ import javax.persistence.*;
         })})
 public class FriendRequest {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friend_request_idx")
     private Long idx;
 

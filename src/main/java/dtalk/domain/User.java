@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "user_info")
 public class User{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_idx")
     private Long idx;
     @Column(name = "user_id",unique = true)

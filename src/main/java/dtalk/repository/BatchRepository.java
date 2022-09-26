@@ -1,5 +1,6 @@
 package dtalk.repository;
 
+
 import dtalk.domain.Batch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import javax.persistence.EntityManager;
 @Transactional(readOnly = true)
 public class BatchRepository {
     private final EntityManager em;
-
+    @Transactional
     public Long batchIdx(Batch batch){
         em.persist(batch);
         return batch.getIdx();

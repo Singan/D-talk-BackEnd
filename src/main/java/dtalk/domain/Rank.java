@@ -8,14 +8,12 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-@Table(name="rank")
-/*
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-*/
+@Table(name="rank_info")
+
 public  class Rank {
     @Id
-    @GeneratedValue
-    @Column(name = "rank_idx")
+    @Column(name="rank_idx")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
     @Column(name = "rank_num")

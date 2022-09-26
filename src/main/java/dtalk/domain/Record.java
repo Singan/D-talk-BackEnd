@@ -17,7 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
         })})
 public class Record {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "record_idx")
     private Long idx;
 

@@ -15,8 +15,7 @@ import javax.persistence.*;
         })})
 public class Friend {
     @Id
-    @GeneratedValue
-    @Column(name = "friend_idx")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "friend_idx")
     private Long idx;
 
     @ManyToOne(fetch = FetchType.LAZY )

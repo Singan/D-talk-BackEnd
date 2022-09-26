@@ -1,5 +1,7 @@
 package dtalk.repository;
 
+
+
 import dtalk.domain.Batch;
 import dtalk.domain.Rank;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +23,8 @@ public class RankRepository {
     }
 
     public List<Rank> dayRank(){
-        Batch batch = em.createQuery("select b from Batch b " +
-                "where b.type='일간' order by b.idx desc ", Batch.class).setFirstResult(0).setMaxResults(0).getSingleResult();
+        Batch batch = em.createQuery("select b from Batch b where b.type='일간'" +"order by b.idx desc ", Batch.class)
+                .setFirstResult(0).setMaxResults(10).getSingleResult();
 
         return em.createQuery("select r FROM  Rank r where r.batch = :batch",Rank.class)
                 .setParameter("batch",batch)

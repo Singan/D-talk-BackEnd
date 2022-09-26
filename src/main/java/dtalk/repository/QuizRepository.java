@@ -47,8 +47,8 @@ public class QuizRepository {
 
     public List<Quiz> rankQuizList(LocalDateTime prev , LocalDateTime next){
         System.out.println("퀴즈랭킹리스트 실행");
-        return em.createQuery("select r.quiz from Record r  " +
-                        " order by r.like desc",Quiz.class)
+        return em.createQuery("select r.quiz from Record r  "
+                       /* " order by r.like desc"*/,Quiz.class)
 /*                .setParameter("prev",prev)
                 .setParameter("next",next)*/
                 .setFirstResult(0)

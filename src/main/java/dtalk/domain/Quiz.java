@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "quiz_info")
 public class Quiz {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_idx")
     private Long idx;
 
@@ -38,6 +38,6 @@ public class Quiz {
 
     private CUTime cuTime;
 
-    @OneToOne(mappedBy = "quiz")
-    private Rank rank;
+/*    @OneToOne(mappedBy = "quiz")
+    private Rank rank;*/
 }

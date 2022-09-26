@@ -6,6 +6,7 @@ import dtalk.dto.friend.request.FriendRequestSendDTO;
 import dtalk.dto.user.UserDetailDTO;
 import dtalk.service.FriendRequestService;
 import dtalk.service.FriendService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,6 +36,7 @@ public class FriendRequestController {
         return FriendRequestResponseDTO.createUserResDto(friendRequestService.friendReceive(me));
     }
     @DeleteMapping
+    @Operation(description = "0이면 추가 아니면 거절")
     public void friendAction(@RequestBody @Valid Action action){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();

@@ -3,6 +3,7 @@ package dtalk.repository;
 
 
 import dtalk.domain.Batch;
+import dtalk.domain.QuizRank;
 import dtalk.domain.Rank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -22,12 +23,22 @@ public class RankRepository {
         em.persist(rank);
     }
 
-    public List<Rank> dayRank(){
-        Batch batch = em.createQuery("select b from Batch b where b.type='일간'" +"order by b.idx desc ", Batch.class)
-                .setFirstResult(0).setMaxResults(10).getSingleResult();
+    public List<QuizRank> dayRank(){
+        Batch batch = em.createQuery("select b from Batch b where b.type='일간' having max(b.idx) ", Batch.class)
+                .getSingleResult();
 
-        return em.createQuery("select r FROM  Rank r where r.batch = :batch",Rank.class)
+        return em.createQuery("select r FROM  Rank r where r.batch = :batch",QuizRank.class)
                 .setParameter("batch",batch)
+                .setFirstResult(0).setMaxResults(10)
+                .getResultList();
+    }
+    public List<QuizRank> weekRank(){
+        Batch batch = em.createQuery("select b from Batch b where b.type='주간' having max(b.idx) ", Batch.class)
+                .getSingleResult();
+
+        return em.createQuery("select r FROM  Rank r where r.batch = :batch",QuizRank.class)
+                .setParameter("batch",batch)
+                .setFirstResult(0).setMaxResults(20)
                 .getResultList();
     }
 }

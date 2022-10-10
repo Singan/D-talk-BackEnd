@@ -2,6 +2,7 @@ package dtalk.controller;
 
 import dtalk.domain.Quiz;
 
+import dtalk.domain.QuizRank;
 import dtalk.domain.Rank;
 import dtalk.dto.rank.RankDTO;
 import dtalk.service.QuizService;
@@ -27,12 +28,11 @@ public class RankController {
     @GetMapping("/day")
     @Operation(description = "일간랭킹")
     public List<RankDTO> dayRank(){
-        List<Rank> rankList = rankService.dayRank();
+        List<QuizRank> rankList = rankService.dayRank();
         List<RankDTO> list = new ArrayList<>();
-        for (Rank r: rankList) {
+        for (QuizRank r: rankList) {
             Quiz quiz = quizService.findQuiz(r.getQuiz().getIdx());
             Long like = recordService.findRecordLike(quiz);
-
             list.add(RankDTO.createRankDTO(quiz.getThumbImg(),like));
         }
         Collections.sort(list);

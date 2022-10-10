@@ -1,5 +1,6 @@
 package dtalk.service;
 
+import dtalk.domain.QuizRank;
 import dtalk.domain.Rank;
 import dtalk.repository.RankRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class RankService {
     public void rankUpdate(Rank rank){
         rankRepository.rankUpdate(rank);
     }
-    public List<Rank> dayRank(){
+    public List<QuizRank> dayRank(){
         return rankRepository.dayRank();
     }
 }

@@ -3,15 +3,14 @@ package dtalk.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-/*
-@Getter
+import javax.persistence.*;
+
 @Setter
+@Getter
+@DiscriminatorValue("U")
 @Entity
 public class UserRank extends Rank{
+    @JoinColumn(name = "rank_user")
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 }
-*/

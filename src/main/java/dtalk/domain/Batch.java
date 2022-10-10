@@ -20,7 +20,6 @@ public class Batch {
 
     private CUTime cuTime;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "batch_type")
     private BatchType type;

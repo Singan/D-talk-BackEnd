@@ -36,8 +36,8 @@ public class Record {
     @Column(name="record_sec")
     private Integer sec;
 
-    @Column(name = "record_like")
-    private Integer like;
+    @Column(name = "record_recommend")
+    private Integer recommend;
 
     private CUTime cuTime;
 }

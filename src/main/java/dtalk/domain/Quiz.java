@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,6 +40,8 @@ public class Quiz {
 
     private CUTime cuTime;
 
+    @OneToMany(mappedBy = "quiz" ,fetch = FetchType.LAZY )
+    private List<Record> recordList  = new ArrayList();;
 /*    @OneToOne(mappedBy = "quiz")
     private Rank rank;*/
 }

@@ -47,12 +47,12 @@ public class RankScheduler {
             QuizRank rank = new QuizRank();
             rank.setQuiz(quizList.get(i));
             rank.setBatch(batch);
-            rank.setLike(recordService.findRecordLike(quizList.get(i)));
+            rank.setRecommend(recordService.findRecordLike(quizList.get(i)));
             rankService.rankUpdate(rank);
         }
 
     }
-    @Scheduled(cron = " 0 34 20 * * *")
+    @Scheduled(cron = " 0 0 0 * * *")
     public void daysRank(){
         LocalDateTime  next = LocalDateTime.now();
         LocalDateTime  prev = next.minusDays(100);
@@ -60,14 +60,16 @@ public class RankScheduler {
         Batch batch = new Batch();
         batch.setCuTime(new CUTime(LocalDateTime.now()));
         batch.setType(BatchType.일간);
-        List<Quiz> quizList = quizService.rankQuizList(next,prev);
+        List<Quiz> quizList = quizService.rankQuizList(prev,next);
+        System.out.println("랭킹리스트 끝");
         batchRepository.batchIdx(batch);
         for(int i = 0 ; i <quizList.size() ; i++){
             QuizRank rank = new QuizRank();
             rank.setQuiz(quizList.get(i));
             rank.setBatch(batch);
-            rank.setLike(recordService.findRecordLike(quizList.get(i)));
+            rank.setRecommend(recordService.findRecordLike(quizList.get(i)));
             rankService.rankUpdate(rank);
+            System.out.println("왜안들어오냐고계속");
         }
 
     }

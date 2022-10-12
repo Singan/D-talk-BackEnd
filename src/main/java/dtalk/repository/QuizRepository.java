@@ -47,11 +47,13 @@ public class QuizRepository {
 
     public List<Quiz> rankQuizList(LocalDateTime prev , LocalDateTime next){
         System.out.println("퀴즈랭킹리스트 실행");
-
-        return em.createQuery("select r.quiz from Record r where :prev <r.quiz.cuTime.createdAt and r.quiz.cuTime.createdAt < :next " +
-                        " order by r.like desc",Quiz.class)
+        CUTime prevTime = new CUTime(prev);
+        //and r.quiz.cuTime.createdAt < :next
+        return em.createQuery("select distinct " +
+                        "r.quiz from Record r where r.quiz.cuTime.createdAt > :prev "+
+                        " order by r.recommend desc",Quiz.class)
                 .setParameter("prev",prev)
-                .setParameter("next",next)
+                //.setParameter("next",next)
                 .setFirstResult(0)
                 .setMaxResults(20)
                 .getResultList();

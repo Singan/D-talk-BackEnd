@@ -22,6 +22,6 @@ public  class Rank {
     @JoinColumn(name = "batch_idx")
     private Batch batch;
 
-    @Column(name = "rank_like")
-    private Long like;
+    @Column(name = "rank_recommend")
+    private Long recommend;
 }

@@ -20,6 +20,7 @@ public class RankRepository {
 
     @Transactional
     public void rankUpdate(Rank rank){
+        System.out.println("왜안되지");
         em.persist(rank);
     }
 

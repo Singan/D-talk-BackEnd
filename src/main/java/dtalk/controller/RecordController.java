@@ -29,7 +29,7 @@ public class RecordController {
 
     @GetMapping
     @Operation(description = "유저의 좋아요 수")
-    public Long likeQuiz(@RequestParam Long userIdx){
+    public Long recommendQuiz(@RequestParam Long userIdx){
         User user = new User();
         user.setIdx(userIdx);
         return recordService.userRecommendCount(user);

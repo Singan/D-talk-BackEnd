@@ -32,8 +32,8 @@ public class RankController {
         List<RankDTO> list = new ArrayList<>();
         for (QuizRank r: rankList) {
             Quiz quiz = quizService.findQuiz(r.getQuiz().getIdx());
-            Long like = recordService.findRecordLike(quiz);
-            list.add(RankDTO.createRankDTO(quiz.getThumbImg(),like));
+            Long recommend = recordService.findRecordLike(quiz);
+            list.add(RankDTO.createRankDTO(quiz.getThumbImg(),recommend));
         }
         Collections.sort(list);
         for (int i = 0 ; i<list.size();i++){

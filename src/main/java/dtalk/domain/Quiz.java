@@ -28,7 +28,7 @@ public class Quiz {
     @Column(name = "quiz_thumb_img")
     private String thumbImg;
 
-    @Column(columnDefinition = "TEXT",name = "quiz_detail")
+    @Column(columnDefinition = "MEDIUMTEXT",name = "quiz_detail")
     private String detail;
 
     @Column(name="quiz_sec")

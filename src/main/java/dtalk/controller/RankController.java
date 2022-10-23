@@ -41,4 +41,20 @@ public class RankController {
         }
         return list;
     }
+    @GetMapping("/week")
+    @Operation(description = "주간랭킹")
+    public List<RankDTO> weekRank(){
+        List<QuizRank> rankList = rankService.weekRank();
+        List<RankDTO> list = new ArrayList<>();
+        for (QuizRank r: rankList) {
+            Quiz quiz = quizService.findQuiz(r.getQuiz().getIdx());
+            Long recommend = recordService.findRecordLike(quiz);
+            list.add(RankDTO.createRankDTO(quiz.getThumbImg(),recommend));
+        }
+        Collections.sort(list);
+        for (int i = 0 ; i<list.size();i++){
+            list.get(i).setRank(i+1);
+        }
+        return list;
+    }
 }

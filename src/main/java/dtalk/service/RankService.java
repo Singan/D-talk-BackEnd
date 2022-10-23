@@ -19,4 +19,7 @@ public class RankService {
     public List<QuizRank> dayRank(){
         return rankRepository.dayRank();
     }
+    public List<QuizRank> weekRank(){
+        return rankRepository.weekRank();
+    }
 }

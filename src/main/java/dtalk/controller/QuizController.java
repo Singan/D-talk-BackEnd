@@ -32,7 +32,7 @@ public class QuizController {
         return quizService.save(quizSaveDto);
     }
 
-    @GetMapping("/detail")
+    @GetMapping
     @Operation(description = "퀴즈디테일")
     public String detail(@RequestParam(required = false) Long idx){
         return quizService.findQuiz(idx).getDetail();

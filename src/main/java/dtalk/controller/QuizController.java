@@ -13,8 +13,10 @@ import dtalk.service.RecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -27,8 +29,8 @@ import java.util.List;
 public class QuizController {
     private final QuizService quizService;
     private final RecordService recordService;
-    @PostMapping
-    public Long save(@RequestBody QuizSaveDto quizSaveDto){
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Long save(@RequestPart QuizSaveDto quizSaveDto, @RequestPart MultipartFile thumbnail){
         return quizService.save(quizSaveDto);
     }
 

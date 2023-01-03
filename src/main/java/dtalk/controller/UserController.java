@@ -9,9 +9,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -69,9 +71,9 @@ public class UserController {
                 .getAuthentication().getPrincipal()).getUser();
         return UserUpdateDTO.createUserUpdateDTO(me);
     }
-    @PutMapping("/profile")
-    @Operation(description = "유저 프로필")
-    public void UpdateUser(@RequestBody UserUpdateDTO userUpdateDTO){
+    @PutMapping(value = "/profile", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @Operation(description = "유저 프로필(일단 이미지 업로드하면 이미지 오리지널 네임 리턴하게 해놓았슴)")
+    public String UpdateUser(@RequestPart UserUpdateDTO userUpdateDTO,@RequestPart MultipartFile imgFile){
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         System.out.println(me.getIdx());
@@ -82,5 +84,7 @@ public class UserController {
         if(me.getBgmStatus()!=null)
             me.setBgmStatus(userUpdateDTO.getBgmStatus());
         userService.UpdateUser(me);
+
+        return imgFile.getOriginalFilename();
     }
 }

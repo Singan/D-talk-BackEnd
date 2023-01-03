@@ -17,7 +17,7 @@ class UserControllerTest {
 
     @Test
     void join() {
-        UserSaveDTO userSaveDto = new UserSaveDTO(null,null,null,null);
+        UserSaveDTO userSaveDto = new UserSaveDTO();
         assertEquals(userSaveDto.getId(),null);
     }
 

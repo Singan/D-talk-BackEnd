@@ -6,6 +6,7 @@ import dtalk.domain.User;
 import dtalk.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class QuizSaveDto {
     private String keyword;
+    @Setter
     private String thumbImg;
     private String detail;
     private Integer sec;

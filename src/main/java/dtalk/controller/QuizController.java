@@ -1,5 +1,9 @@
 package dtalk.controller;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import dtalk.domain.Quiz;
 import dtalk.domain.User;
 import dtalk.dto.quiz.QuizListDTO;
@@ -15,10 +19,12 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +35,31 @@ import java.util.List;
 public class QuizController {
     private final QuizService quizService;
     private final RecordService recordService;
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public Long save(@RequestPart QuizSaveDto quizSaveDto, @RequestPart MultipartFile thumbnail){
-        return quizService.save(quizSaveDto);
+
+    private String S3Bucket = "asdadz"; // Bucket 이름
+
+
+    private final AmazonS3Client amazonS3Client;
+
+    @PostMapping(consumes = {"multipart/form-data"})
+    public String save(@RequestPart QuizSaveDto quizSaveDto, @RequestPart MultipartFile thumbnail) throws IOException {
+        System.out.println("들어오긴했니");
+        String originalName = thumbnail.getOriginalFilename(); // 파일 이름
+        long size = thumbnail.getSize(); // 파일 크기
+
+        ObjectMetadata objectMetaData = new ObjectMetadata();
+        objectMetaData.setContentType(thumbnail.getContentType());
+        objectMetaData.setContentLength(size);
+
+        // S3에 업로드
+        amazonS3Client.putObject(
+                new PutObjectRequest(S3Bucket, originalName, thumbnail.getInputStream(), objectMetaData)
+                        .withCannedAcl(CannedAccessControlList.PublicRead)
+        );
+
+        String imagePath = amazonS3Client.getUrl(S3Bucket, originalName).toString(); // 접근가능한 URL 가져오기
+        quizSaveDto.setThumbImg(imagePath);
+        return imagePath;
     }
 
     @GetMapping

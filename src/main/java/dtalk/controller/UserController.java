@@ -1,5 +1,9 @@
 package dtalk.controller;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import dtalk.domain.User;
 import dtalk.dto.user.*;
 import dtalk.security.token.JwtTokenProvider;
@@ -28,6 +32,8 @@ public class UserController {
     private final QuizService quizService;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private String S3Bucket = "asdadz"; // Bucket 이름
+    private final AmazonS3Client amazonS3Client;
 
     @GetMapping("/list")
     @Operation(description = "회원리스트")
@@ -71,9 +77,9 @@ public class UserController {
                 .getAuthentication().getPrincipal()).getUser();
         return UserUpdateDTO.createUserUpdateDTO(me);
     }
-    @PutMapping(value = "/profile", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PutMapping(value = "/profile", consumes = {"multipart/form-data"})
     @Operation(description = "유저 프로필(일단 이미지 업로드하면 이미지 오리지널 네임 리턴하게 해놓았슴)")
-    public String UpdateUser(@RequestPart UserUpdateDTO userUpdateDTO,@RequestPart MultipartFile imgFile){
+    public String UpdateUser(@RequestPart UserUpdateDTO userUpdateDTO,@RequestPart MultipartFile imgFile) throws IOException {
         User me = ((UserDetailDTO) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUser();
         System.out.println(me.getIdx());
@@ -84,6 +90,23 @@ public class UserController {
         if(me.getBgmStatus()!=null)
             me.setBgmStatus(userUpdateDTO.getBgmStatus());
         userService.UpdateUser(me);
+
+
+        String originalName = imgFile.getOriginalFilename(); // 파일 이름
+        long size = imgFile.getSize(); // 파일 크기
+
+        ObjectMetadata objectMetaData = new ObjectMetadata();
+        objectMetaData.setContentType(imgFile.getContentType());
+        objectMetaData.setContentLength(size);
+
+        // S3에 업로드
+        amazonS3Client.putObject(
+                new PutObjectRequest(S3Bucket, originalName, imgFile.getInputStream(), objectMetaData)
+                        .withCannedAcl(CannedAccessControlList.PublicRead)
+        );
+
+        String imagePath =  amazonS3Client.getUrl(S3Bucket, originalName).toString();
+        userUpdateDTO.setProfileImg(imagePath);
 
         return imgFile.getOriginalFilename();
     }
